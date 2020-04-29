@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Data Date_Modified="12/06/2018 2:21 PM" Copper_Price="2.772" Aluminum_Price="1" M6_Price="1.18" M19_Price="0.935" M12_Price="1.05" M085_Price="1.2954">
+  <Copper Price="3.62" Date_Updated="01/22/2020">
+    <!--Price in $/Lb.-->
+  </Copper>
+  <Aluminum Price="0.9478" Date_Updated="01/01/2020">
+    <!--Price in $/Lb.-->
+  </Aluminum>
+  <CTL_Lamination>
+    <M6 Price="1.18" Date_Updated="12/06/2018"></M6>
+    <M12 Price="1.05" Date_Updated="12/06/2018" />
+    <M19 Price="0.935" Date_Updated="12/06/2018" />
+    <M085_ButtLap Price="1.2954" Date_Updated="04/17/2019" />
+    <M085_StepLap Price="1.3654" Date_Updated="04/17/2019" />
+    <!--All CTL_Lamination Prices are in $/Lb.-->
+  </CTL_Lamination>
+  <STD_Lamination>
+    <M6 Price="469" Date_Updated="01/01/2020"></M6>
+    <M19 Price="1024" Date_Updated="01/01/2020" />
+    <M50 Price="552" Date_Updated="01/01/2020" />
+    <!--All STD_Lamination Prices are in $/Ton.-->
+  </STD_Lamination>
+</Data>
