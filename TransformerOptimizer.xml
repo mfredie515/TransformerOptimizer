@@ -1,0 +1,3337 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TransformerOptimizer</name>
+    </assembly>
+    <members>
+        <member name="T:TransformerOptimizer.Components.Base.Core">
+            <summary>
+            Contains information related to a core that will be used in a design.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Core.#ctor(TransformerOptimizer.Components.Base.Lamination,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            
+            Creates a core using the given lamination and stack to be used in a design.
+            </summary>
+            <param name="lamination">What lamination will be used to make the core.</param>
+            <param name="stack">Core stack.</param>
+            <param name="fluxDensity">What flux density the core should operate at.</param>
+            <param name="tubeWindowMargin">Length between top/bottom of the window and the top/bottom of the tube.</param>
+            <param name="stackingFactor">Ratio of <see cref="P:TransformerOptimizer.Components.Base.Lamination.Thickness"/> stack to <see cref="P:TransformerOptimizer.Components.Base.Core.Stack"/>.</param>
+            <param name="desctructionFactor">Destruction Factor of the lamination.</param>
+            <param name="excitationFactor">Excitation Factor of the core.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Lamination">
+            <summary>
+            What lamination the core is made of.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Stack">
+            <summary>
+            Stack of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.FluxDensity">
+            <summary>
+            What flux density the core operates at.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.TubeWindowMargin">
+            <summary>
+            Length between top/bottom of the window and the top/bottom of the tube.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.StackingFactor">
+            <summary>
+            Core stacking factor, ratio of <see cref="P:TransformerOptimizer.Components.Base.Lamination.Thickness"/> stack to <see cref="P:TransformerOptimizer.Components.Base.Core.Stack"/>. Between 0 and 1.
+            
+            Example: For a 0.96 stacking factor, 96 pieces of 1 inch laminations stacked would be equivelent to a 100 inch core stack.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.DestructionFactor">
+            <summary>
+            Destruction Factor of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.ExcitationFactor">
+            <summary>
+            Excitation Factor of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Name">
+            <summary>
+            Name of the core, made up of the lamination name and the core stack.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.NumberOfLaminations">
+            <summary>
+            Number of laminations that are stacked together to form the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Depth">
+            <summary>
+            The depth of the core, same as <see cref="P:TransformerOptimizer.Components.Base.Core.Stack"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.CrossSectionalAreaSqInch">
+            <summary>
+            Cross sectional area of the core used to determine flux in square inches.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.CrossSectionalAreaSqMeter">
+            <summary>
+            Cross sectional area of the core used to determine flux in square meters.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Weight">
+            <summary>
+            Weight of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.WeightLegs">
+            <summary>
+            Weight of the legs of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.NumberOfCoils">
+            <summary>
+            Number of coils that will be fitted onto the core in a complete design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Core.Cost">
+            <summary>
+            Cost of the core.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Duct">
+            <summary>
+            Represents a layer of ducts to be placed within a winding or between two windings.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Duct.#ctor(TransformerOptimizer.Data.Constants.DuctLocation,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="ductLocation">How the ducts will be located around the coil.</param>
+            <param name="width">Width of the duct.</param>
+            <param name="height">Height of the duct.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Duct.Width">
+            <summary>
+            Returns the width of the duct.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Duct.Height">
+            <summary>
+            Returns the height of the duct.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Duct.DuctLocation">
+            <summary>
+            Returns how the ducts will be located around the coil.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Lamination">
+            <summary>
+            Contains information related to a lamination that will be used to generate a core.
+            
+            The lamination can be either a standard or cut-to-length lamination, and its' other properties set based on the shape and phase provided.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Lamination.#ctor(System.Boolean,System.String,TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Data.Constants.Grade,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            
+            If <paramref name="standardLamination"/> is true, the lamination sets its' <see cref="P:TransformerOptimizer.Components.Base.Lamination.Surcharge"/> based on the function <see cref="M:TransformerOptimizer.Data.LoadedData.Prices.GetMaterialSurcharge(TransformerOptimizer.Data.Constants.Grade)"/>.
+            Otherwise <see cref="P:TransformerOptimizer.Components.Base.Lamination.Surcharge"/> is set to 0 if <paramref name="standardLamination"/> is false.
+            
+            If <paramref name="weight"/> is 0 then the <see cref="P:TransformerOptimizer.Components.Base.Lamination.Weight"/> property is set using the equation <see cref="P:TransformerOptimizer.Components.Base.Lamination.Length"/> * <see cref="P:TransformerOptimizer.Components.Base.Lamination.Height"/> * <see cref="P:TransformerOptimizer.Components.Base.Lamination.Thickness"/> * 0.276.
+            </summary>
+            <param name="standardLamination">If the lamination to be created uses a standard lamination or is cut-to-length.</param>
+            <param name="partNumber">Part number of the lamination.</param>
+            <param name="shape">Shape of the lamination.</param>
+            <param name="phase">Phase of the design lamination is used in.</param>
+            <param name="grade">Grade of steel of the lamination.</param>
+            <param name="thickness">Thickness of steel of the lamination.</param>
+            <param name="tongue">Width of middle leg.</param>
+            <param name="yoke">Width of two side legs and of top and bottom yoke.</param>
+            <param name="windowWidth">Window width.</param>
+            <param name="windowHeight">Window height.</param>
+            <param name="scrapFactor">Weight ratio of used laminations and bought laminations. Used only for standard laminations. Between 0 and 1.</param>
+            <param name="desctructionFactor">Built in destruction factor of the lamination.</param>
+            <param name="excitationFactor">Built in excitation factor of the lamination.</param>
+            <param name="cost">Cost of the lamination, does not include surcharge.</param>
+            <param name="weight">Weight of the lamination, if 0 then the weight will be approximated.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.StandardLamination">
+            <summary>
+            If the lamination is a standard lamination.
+            True = Standard, False = Cut to Length.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Cost">
+            <summary>
+            Cost of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Weight">
+            <summary>
+            Weight of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.DestructionFactor">
+            <summary>
+            Destruction Factor of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.ExcitationFactor">
+            <summary>
+            Excitation Factor of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.ScrapFactor">
+            <summary>
+            Scrap Factor of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Surcharge">
+            <summary>
+            Surcharge of the lamination material in $/Ton.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Thickness">
+            <summary>
+            Thickness of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Tongue">
+            <summary>
+            Tongue of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.WindowWidth">
+            <summary>
+            Window Width of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.WindowHeight">
+            <summary>
+            Window Height of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Yoke">
+            <summary>
+            Yoke of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Shape">
+            <summary>
+            Lamination Shape.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Grade">
+            <summary>
+            Lamination Grade.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Phase">
+            <summary>
+            Lamination phase.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.LaminationPartNumber">
+            <summary>
+            Returns the part number of the lamination
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Name">
+            <summary>
+            Returns the name of the lamination, form of 'Shape'-'Tongue'.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Length">
+            <summary>
+            Returns the length of the lamination, taken with windows facing 'viewer' and legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.Height">
+            <summary>
+            Returns the height of the lamination, taken with windows facing 'viewer' and legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.BuildFactor">
+            <summary>
+            Returns the build factor of the lamination, used to determine the correct build percentage of a design as single phase EI, three phase EI, and UI utilize different window percentages per coil.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Lamination.ScraplessLamination">
+            <summary>
+            Determines if the lamination is scrapless or not.
+            
+            For Single Phase, scrapless laminations have a window height and window width ratio of 3.
+            For Three Phase, scrapless laminations have a window height and window width ratio of 2.5.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Section">
+            <summary>
+            An individual section of a <see cref="T:TransformerOptimizer.Components.Base.Winding"/>.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Section.#ctor(TransformerOptimizer.Components.Base.Winding,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,TransformerOptimizer.Data.Constants.WireMaterial,TransformerOptimizer.Data.Constants.WireShape,TransformerOptimizer.Data.Constants.Bifilar[],TransformerOptimizer.Data.Constants.WireShape[])">
+            <summary>
+            Constructor.       
+            
+            Note: For a <paramref name="wireMaterial"/> of <see cref="F:TransformerOptimizer.Data.Constants.WireMaterial.COPPER"/> or <see cref="F:TransformerOptimizer.Data.Constants.WireMaterial.ALUMINUM"/> the current density minimum and maximum work as expected.
+            If <paramref name="wireMaterial"/> is <see cref="F:TransformerOptimizer.Data.Constants.WireMaterial.ANY"/> then for the Aluminum wire the maximum current density is capped at 1300, and for the Copper wire the minimum durrent density is capped at 1000.
+            
+            </summary>
+            <param name="winding">Winding to add the section to.</param>
+            <param name="order">Order of the section in the coil.</param>
+            <param name="startVoltage">Starting voltage of the section.</param>
+            <param name="endVoltage">Ending voltage of the section.</param>
+            <param name="bulgeFactor">Bulge factor of the section.</param>
+            <param name="margin">Margin of the section.</param>
+            <param name="layerPaper">Total thickness of insulation between layers.</param>
+            <param name="wrap">Total thickness of wrap after the section.</param>
+            <param name="cdMin">Minimum current density for wires to pass.</param>
+            <param name="cdMax">Maximum current density for wires to pass.</param>
+            <param name="wireMaterial">Wire materials to iterate.</param>
+            <param name="wireShape">Wire shapes to iterate.</param>
+            <param name="bifilars">Bifilar ranges to iterate.</param>
+            <param name="wireShapes">Optional parameter used to specify which cominatiopn of wire shapes for iterate over.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Section.#ctor(TransformerOptimizer.Components.Base.Section,TransformerOptimizer.Components.Base.Wire)">
+            <summary>
+            Copy contructor.
+            
+            Copies the fields from <paramref name="section"/> and adds reference to <paramref name="wire"/>.
+            </summary>
+            <param name="section">Section to copy.</param>
+            <param name="wire">Wire to add reference to.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Section.#ctor(TransformerOptimizer.Components.Base.Section)">
+            <summary>
+            Copy constructor.
+            
+            Copies the fields from <paramref name="section"/>.
+            </summary>
+            <param name="section">Section to copy.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.WindingName">
+            <summary>
+            Name of the assoiated winding name.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Name">
+            <summary>
+            Name of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.SectionOrder">
+            <summary>
+            The order that the section is placed in the coil.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Turns">
+            <summary>
+            The number of turns in the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.BulgeFactor">
+            <summary>
+            Returns the bulge factor to be used in the calculation of <see cref="P:TransformerOptimizer.Components.Base.Section.LengthMeanTurn"/> and <see cref="P:TransformerOptimizer.Components.Base.Section.PreviousBuild"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.CurrentDensityMaximum">
+            <summary>
+            Maximum current density for passing wires. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.CurrentDensityMinimum">
+            <summary>
+            Minimum current density for passing wires. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Margin">
+            <summary>
+            The desired gap between the start of the section and the top of the <see cref="P:TransformerOptimizer.Components.Base.Winding.Tube"/> and the end of the section and the bottom of the <see cref="P:TransformerOptimizer.Components.Base.Winding.Tube"/>. 
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.StartingVoltage">
+            <summary>
+            The starting voltage for this section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.EndingVoltage">
+            <summary>
+            The ending voltage for this section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.LayerPaper">
+            <summary>
+            The total layer paper thickness to place between each layer of wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Wrap">
+            <summary>
+            The total wrap thickness to place on the outside of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Winding">
+            <summary>
+            Which winding the section is a member of.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.PreviousSection">
+            <summary>
+            The previous section of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Wire">
+            <summary>
+            The wire that the section is using.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.IterateWireMaterial">
+            <summary>
+            Which wire material to iterate through. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.IterateWireShape">
+            <summary>
+            Which wire shapes to iterate through. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.IterateWireShapes">
+            <summary>
+            Which wire shapes to iterate through. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.BifilarRange">
+            <summary>
+            The range of bifilars to iterate through. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Wires">
+            <summary>
+            A list of wires that meet the sections <see cref="P:TransformerOptimizer.Components.Base.Section.CurrentDensityMinimum"/> and <see cref="P:TransformerOptimizer.Components.Base.Section.CurrentDensityMaximum"/> requirements. Used only in <see cref="T:TransformerOptimizer.Components.Factories.WindingFactory"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.VoltageRange">
+            <summary>
+            Returns the line voltage range of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.PhaseVoltageRange">
+            <summary>
+            Returns the phase voltage range of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.LengthMeanTurn">
+            <summary>
+            Returns the average length of a complete turn in the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.TurnsPerLayer">
+            <summary>
+            Returns the maximum number of turns that can fit in a single layer of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.NumberOfLayers">
+            <summary>
+            Returns the number of layers that the section will contain.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.WindingLength">
+            <summary>
+            Returns the length available on the core for the winding of the section.
+            
+            See <see cref="P:TransformerOptimizer.Components.Base.Core.TubeWindowMargin"/> and <see cref="P:TransformerOptimizer.Components.Base.Section.Margin"/> for information on each component.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.PreviousBuild">
+            <summary>
+            Returns the sum of the buildup of the previous sections.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Build">
+            <summary>
+            Returns the buildup of the section with added outside wrap.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.BuildNoWrap">
+            <summary>
+            Returns the buildup of the section without any outside wrap added.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.WireLength">
+            <summary>
+            Returns the approximate length of wire used in the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.CurrentDensity">
+            <summary>
+            Returns the current density of the section based on <see cref="P:TransformerOptimizer.Components.Base.Section.SectionNominalCurrent"/> and the UI style if applicable.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Resistance">
+            <summary>
+            Returns the resistance of the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.RecursiveResistance">
+            <summary>
+            Returns the total resistance that would be seen by this section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Weight">
+            <summary>
+            Returns the weight of the section.
+            
+            As of 04/01/2019 only the weight of the wire is used to determine the total weight.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Section.Losses">
+            <summary>
+            Returns the I²R losses in the section with its calculated <see cref="P:TransformerOptimizer.Components.Base.Section.SectionCurrent"/>.
+            </summary>
+            <returns>Losses seen by this section.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Section.Losses(System.Double,System.Boolean)">
+            <summary>
+            Returns the I²R losses in the section with a given current.
+            
+            If <paramref name="recursiveResistance"/> is true, the resistance to be used in calculations is the sum of all sections that the <paramref name="current"/> would flow through.
+            </summary>
+            <param name="current">The current to use in loss calculations.</param>
+            <param name="recursiveResistance">Whether to use <see cref="P:TransformerOptimizer.Components.Base.Section.RecursiveResistance"/> as the resistance in loss calculations.</param>
+            <returns>Losses seen by this section.</returns>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Cost">
+            <summary>
+            Returns the cost of the section.
+            
+            As of 04/01/2019 only <see cref="P:TransformerOptimizer.Components.Base.Wire.Cost"/> is used to determine cost.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.SectionVA">
+            <summary>
+            Returns the determined VA of the section based on the start and end voltages and calculated current through the section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.SectionCurrent">
+            <summary>
+            Returns the phase current through the section based on the tap phase voltage.
+            
+            If there are no taps, this method returns <see cref="P:TransformerOptimizer.Components.Base.Section.SectionNominalCurrent"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.SectionNominalCurrent">
+            <summary>
+            Returns the phase current through the section using the winding VA and the nominal phase voltage.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.MeanLengthTurnWidth">
+            <summary>
+            Returns the width of the length of mean turn.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.MeanLengthTurnHeight">
+            <summary>
+            Returns the height of the length of mean turn.
+            
+            As of 04/11/2019 this is the tube stack dimension.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.MeanDuctArea">
+            <summary>
+            Returns the mean duct area of the ducts.
+            
+            As of 04/11/2019 this math is weird and probably wrong.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Section.Ducts">
+            <summary>
+            Container for the ducts that this section uses.
+            
+            As of 04/08/2019 this is only a placeholder, the ducts should be seperate with a ref to the objects before and after it.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Specification">
+            <summary>
+            Contains information to be used between all designs and holds the list of base windings to be used throughout the designs.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Components.Base.Specification.BaseWindings">
+            <summary>
+            Holder for base windings.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Specification.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Specification.ClearWindings">
+            <summary>
+            Clears the list of windings.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Specification.AddNewWinding(System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Double,System.Double,System.Double[],TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Data.Constants.Connection)">
+            <summary>
+            Creates a new winding with no sections and adds it to the list of windings.
+            </summary>
+            <param name="name">Name of the winding.</param>
+            <param name="windingOrder">Order of the winding in the coil.</param>
+            <param name="windingNumber">Used for system determination.</param>
+            <param name="fullCapacity">Are the taps are rated for full capcity or not.</param>
+            <param name="isPrimary">Is the winding primary or secondary.</param>
+            <param name="kva">Rated kVA of the winding.</param>
+            <param name="nominalVoltage">Nominal line voltage of the winding.</param>
+            <param name="voltages">List of voltages of the winding.</param>
+            <param name="phase">Phase of the winding.</param>
+            <param name="connection">Connection of the winding.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Specification.AddSection(TransformerOptimizer.Components.Base.Winding,System.Int32,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,TransformerOptimizer.Data.Constants.WireMaterial,TransformerOptimizer.Data.Constants.WireShape,TransformerOptimizer.Data.Constants.Bifilar[])">
+            <summary>
+            Creates a new section and adds it to the given winding.
+            </summary>
+            <param name="winding">Winding to add section to.</param>
+            <param name="order">Order of the section.</param>
+            <param name="startVoltage">Starting voltage of the section.</param>
+            <param name="endVoltage">Ending voltage of the section.</param>
+            <param name="bulgeFactor">Bulge factor of the section.</param>
+            <param name="margin">Margin of the section.</param>
+            <param name="layerPaper">Total layer paper thickness of the section.</param>
+            <param name="wrap">Total wrap thickness of the section.</param>
+            <param name="cdMin">Minimum current density to find wires with.</param>
+            <param name="cdMax">Maximum current density to find wires with.</param>
+            <param name="wireMaterial">Material to find wires with.</param>
+            <param name="wireShape">Shape to find wires with.</param>
+            <param name="bifilars">Bifilars to find wires with.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Specification.AddWinding(TransformerOptimizer.Components.Base.Winding)">
+            <summary>
+            Add winding to list.
+            </summary>
+            <param name="winding">Winding to add.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.Phase">
+            <summary>
+            Phase of the transformer.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.Frequency">
+            <summary>
+            Frequency at which the transformer will be operated at.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.TubeWindowMargin">
+            <summary>
+            Tube winding margin for the transformer.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.DestructionFactor">
+            <summary>
+            Destruction factor of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.ExcitationFactor">
+            <summary>
+            Excitation factor of the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.StackingFactor">
+            <summary>
+            Stacking factor of the laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Specification.StrayLosses">
+            <summary>
+            Stray Losses of the design in percent.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Tube">
+            <summary>
+            Represents a tube that is fitted over a leg of the core.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Tube.#ctor(System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            
+            Generates a tube with the given parameters.
+            </summary>
+            <param name="name">Name of the tube.</param>
+            <param name="width">Width of the tube, assuming this side is facing 'viewer'.</param>
+            <param name="depth">Depth of the tube, assuming <see cref="P:TransformerOptimizer.Components.Base.Tube.Width"/> is facing 'viewer'. </param>
+            <param name="length">Length of the tube.</param>
+            <param name="thickness">Wall thickness of the tube.</param>
+            <param name="wrap">Thickness of wrap over the tube.</param>
+            <param name="cost">Cost of the tube.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Name">
+            <summary>
+            Name of the tube.
+            
+            If handmade, name is 'Handmade Tube'.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Width">
+            <summary>
+            Width of the tube, assuming this side is facing 'viewer'.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Depth">
+            <summary>
+            Depth of the tube, assuming <see cref="P:TransformerOptimizer.Components.Base.Tube.Width"/> is facing 'viewer'.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Length">
+            <summary>
+            Length of the tube.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Thickness">
+            <summary>
+            Thickness of the tube.
+            
+            Handmade tubes have a thickness of 0.0625 inch.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Wrap">
+            <summary>
+            Wrap around the tube.
+            
+            Handmade tubes have 2 pieces of 0.010 insulation, paper is not specified.
+            Standard tubes have 0 wrap.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.Cost">
+            <summary>
+            Cost of the tube, as on 03/18/2019 all tubes cost 0.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Tube.IsHandmade">
+            <summary>
+            Boolean representing if the tube is a handmade tube or a standard tube.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Winding">
+            <summary>
+            Winding made up of multiple sections.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Winding.#ctor(System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Double,System.Double,TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Data.Constants.Connection,System.Double[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="name">Name of the winding.</param>
+            <param name="windingOrder">Order of the winding in the coil.</param>
+            <param name="index">Used for system determination.</param>
+            <param name="fullCapacity">Are the taps are rated for full capcity or not.</param>
+            <param name="isPrimary">If the winding is a primary winding or not.</param>
+            <param name="ratedVA">Rated VA of the winding.</param>
+            <param name="nominalVoltage">Nominal line voltage of the winding</param>
+            <param name="phase">Phase of the winding.</param>
+            <param name="connection">Connection of the winding.</param>
+            <param name="voltages">List of voltages of the winding.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Winding.#ctor(TransformerOptimizer.Components.Base.Winding)">
+            <summary>
+            Copy constructor.
+            
+            Creates a new winding copy of given winding parameter.
+            </summary>
+            <param name="winding">Winding to copy.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Winding.SetSectionsToSelf">
+            <summary>
+            Sets the winding reference in each section to this winding object.
+            Also sets the previous section reference for each section that would have a previous section.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Name">
+            <summary>
+            Name of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.WindingOrder">
+            <summary>
+            Order of the winding in the coil.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Index">
+            <summary>
+            Used for system determination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.WindingNumber">
+            <summary>
+            Used for system determination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Design">
+            <summary>
+            Design that the windings are attached to. Used to determine current density in the case of series/parallel UI windings.
+            
+            With the addition of this field on 04/03/2019 ideally the core, tube, and previous winding referance can be removed and instead go though the design reference.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Core">
+            <summary>
+            Core the windings go onto.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Tube">
+            <summary>
+            Tube to be used over the core.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.RotatedTube">
+            <summary>
+            Returns if the tube used over the core is rotated.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.FullCapacity">
+            <summary>
+            Returns whether the taps are rated for full capacity or not.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.IsPrimary">
+            <summary>
+            Returns if the winding is a primary or secondary winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.RatedVA">
+            <summary>
+            Rated VA of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.CalcedVA">
+            <summary>
+            Calculated VA of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.NominalVoltage">
+            <summary>
+            Nominal voltage of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Phase">
+            <summary>
+            Phase of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Connection">
+            <summary>
+            Connection of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.PreviousWinding">
+            <summary>
+            Reference to the previous winding in the coil.
+            </summary>     
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Sections">
+            <summary>
+            List of sections that make up the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.TapVoltages">
+            <summary>
+            List of voltages of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.LineVoltage">
+            <summary>
+            Returns the nominal line voltage of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.PhaseVoltage">
+            <summary>
+            Returns the nominal phase voltage of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.NominalCurrent">
+            <summary>
+            Returns the nominal current of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.LowestLineCurrent">
+            <summary>
+            Returns the lowest line current that will be seen in the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.HighestLineCurrent">
+            <summary>
+            Returns the highest line current that will be seen in the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.LowestPhaseCurrent">
+            <summary>
+            Returns the lowest phase current that will be seen in the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.HighestPhaseCurrent">
+            <summary>
+            Returns the highest phase current that will be seen in the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.IsThreePhase">
+            <summary>
+            Returns whether the winding is three phase or not.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Weight">
+            <summary>
+            Returns the total weight of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Cost">
+            <summary>
+            Returns the total cost of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.TotalTurns">
+            <summary>
+            Returns the total number of turns in the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.Build">
+            <summary>
+            Returns the build of the winding.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.WorstCaseLosses">
+            <summary>
+            Returns of the losses of the winding that occur in a specific worst case scenario.
+            
+            If the number of sections is 1, then the worst case losses would just be the normal losses.
+            If the number of sections is greater than 1, then based on the recursive resistance and current of each of the sections the worst case of the combinations is determined.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.InternalExposedArea">
+            <summary>
+            Returns the sum of the sections exposed duct area.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Winding.ExternalExposedArea">
+            <summary>
+            Returns the area exposed on the surface of the winding.        
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Base.Wire">
+            <summary>
+            Contains information related to a wire that will be used in a winding.    
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Wire.#ctor">
+            <summary>
+            Constructor. Required for purposed of derived classes. DO NOT USE!
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Base.Wire.#ctor(System.String,TransformerOptimizer.Data.Constants.WireMaterial,TransformerOptimizer.Data.Constants.WireShape,TransformerOptimizer.Data.Constants.Bifilar,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+            Constructor.
+            
+            If <see cref="P:TransformerOptimizer.Components.Base.Wire.Bifilar"/> is <see cref="F:TransformerOptimizer.Data.Constants.Bifilar._1H1W"/> the cost of the wire is the sum of the fabrication <paramref name="cost"/> and the material price.
+            If <see cref="P:TransformerOptimizer.Components.Base.Wire.Bifilar"/> is not <see cref="F:TransformerOptimizer.Data.Constants.Bifilar._1H1W"/> the cost of the wire will be the product of the cost and the <see cref="M:TransformerOptimizer.Functions.Functions.BifilarMultiplier(TransformerOptimizer.Data.Constants.Bifilar,TransformerOptimizer.Components.Base.Wire)"/>.
+            </summary>
+            <param name="name">Name of the wire.</param>
+            <param name="wireMaterial">Conductor material of the wire.</param>
+            <param name="wireShape">Shape of the wire. </param>
+            <param name="bifilar">Bifilar of the wire.</param>
+            <param name="width">Conductor width of the wire.</param>
+            <param name="thickness">Conductor material of the wire.</param>
+            <param name="insThickness">Insulation thickness around the wire.</param>
+            <param name="resistance">Resistance in Ohms of the wire per 1000 inches.</param>
+            <param name="weight">Weight of the wire in Lbs. per 1000 inches.</param>
+            <param name="cost">Fabrication cost of a single wire.</param>
+            <param name="skew_factor">Skew factor of the wire, 1 for rectangular and round wire and 0 for foil.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.Name">
+            <summary>
+            Name of the wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.WireMaterial">
+            <summary>
+            Conductor material of the wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.WireShape">
+            <summary>
+            Shape of the wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.Bifilar">
+            <summary>
+            Bifilar of the wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.ConductorWidth">
+            <summary>
+            Width of the conductor material.
+            
+            For round wires the width is changed to a value such that the cross sectional area becomes the empirical number received from manufacturers.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.ConductorThickness">
+            <summary>
+            Thickness of the conductor material.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.InsulationThickness">
+            <summary>
+            Thickness of the insulation around the wire.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.TotalWidth">
+            <summary>
+            Total width of the wire including insulation.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.TotalThickness">
+            <summary>
+            Total thickness of the wire including insulation.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.ResistancePer1000Inches">
+            <summary>
+            Resistance of the wire in Ohms per 1000 inches.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.WeightPer1000Inches">
+            <summary>
+            Weight of the wire in Lbs. per 1000 inches.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.Cost">
+            <summary>
+            Cost of the wire.
+            
+            Sum of the material base price and wire fabrication cost.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.SkewFactor">
+            <summary>
+            Skew factor to subtract for the turns per layer calculation.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.CrossSectionalArea">
+            <summary>
+            Returns the cross sectional area of the wire.
+            
+            Rectangular wires have a corner radius that is removed in determining the area see <see cref="M:TransformerOptimizer.Functions.Functions.RemoveCornerRadius(TransformerOptimizer.Components.Base.Wire)"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.CircularMills">
+            <summary>
+            Returns the area of the wire in circular mills.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Base.Wire.TemperatureChangeFactor">
+            <summary>
+            Returns the factor used for change of resistance.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Derived.Foil">
+            <summary>
+            Contains information related to a foil used in windings in place of wire.
+            
+            Derived from <see cref="T:TransformerOptimizer.Components.Base.Wire"/>.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Derived.Foil.#ctor(System.Double,TransformerOptimizer.Data.Constants.WireMaterial)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="requiredCSA">Required cross sectional area of the foil to meet for current density.</param>
+            <param name="wireMaterial">What material the foil will be made of.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Derived.Foil.#ctor(TransformerOptimizer.Components.Derived.Foil)">
+            <summary>
+            Copy Constructor.
+            
+            Copies the required cross sectional area for the foil and the foil material.
+            </summary>
+            <param name="foil">Foil to copy from.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.Bifilar">
+            <summary>
+            In foil windings the bifilar is always set to <see cref="F:TransformerOptimizer.Data.Constants.Bifilar._XH1W"/>.
+            See <see cref="P:TransformerOptimizer.Components.Derived.Foil.BifilarNumber"/> for the number of foils to be used.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.BifilarNumber">
+            <summary>
+            Returns the number of foils needed to get the required cross sectional area.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.ConductorWidth">
+            <summary>
+            In foil windings the width of the foil is equal to the winding length available.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.SkewFactor">
+            <summary>
+            In foil windings the skew factor is 0.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.ConductorThickness">
+            <summary>
+            In foil windings the base thickness of a foil is always 0.005.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.InsulationThickness">
+            <summary>
+            In foil windings the insulation is 0.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.TotalThickness">
+            <summary>
+            Total thickness of the foil layer.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.ResistancePer1000Inches">
+            <summary>
+            Returns the resistance of the foil in Ohms.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.WeightPer1000Inches">
+            <summary>
+            Returns the weight if the foil in Lbs.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.Cost">
+            <summary>
+            Returns the cost of the foil in USD.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.CrossSectionalArea">
+            <summary>
+            Cross sectional area of the foil.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Derived.Foil.Section">
+            <summary>
+            Section that the foil is attached to.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Factories.CoreFactory">
+            <summary>
+            Creates and stores a list of cores based on given parameters.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Factories.CoreFactory.#ctor(System.Collections.Generic.List{TransformerOptimizer.Components.Base.Lamination},TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,System.Double,System.Double,System.Double,System.Double,System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>
+            Constructor.
+            
+            Generates a list of cores based on the given parameters.
+            </summary>
+            <param name="laminations">A list of laminations to create cores out of.</param>
+            <param name="stackRange">IterableRange representing the range of stacks to create with.</param>
+            <param name="fluxRange">IterableRange representing the range of stacks to create with.</param>
+            <param name="stackingFactor">Stacking factor of the core.</param>
+            <param name="destructionFactor">Destruction factor of the core.</param>
+            <param name="excitationFactor">Excitation factor of the core.</param>
+            <param name="tubeWindowMargin">Tube Window Margin to be used in the core.</param>
+            <param name="func">Optional parameter, a function delegate that returns a boolean, and takes two integer inputs. As of 03/15/2019 only used with <see cref="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)"/>.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Factories.CoreFactory.Cores">
+            <summary>
+            List of cores.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Factories.DesignFactory">
+            <summary>
+            Creates and stores a list of designs based on given parameters.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Factories.DesignFactory.#ctor(TransformerOptimizer.Components.Base.Specification,System.Collections.Generic.List{TransformerOptimizer.Components.Base.Core},System.Collections.Generic.List{System.Collections.Generic.List{TransformerOptimizer.Components.Base.Winding}},TransformerOptimizer.Parameters.RangeInteger,System.Collections.Concurrent.ConcurrentQueue{TransformerOptimizer.Design},System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>
+            Constructor.
+            
+            Generates a list of designs and pushes them into a concurrect queue.
+            Each core finds the closest tube that fits on it and then each core and tube combination gets combined with each list of windings to create a design.
+            
+            If the core is a UI core, then depending on the selected UI styles either Series, Parallel, or Both styles of designs will be generated.
+            </summary>
+            <param name="specification">Specification containing base design information to be passed to designs.</param>
+            <param name="cores">List of cores to be used.</param>
+            <param name="windings">List of list of windings to be used.</param>
+            <param name="uiStyles">IterableRange represnting the UI styles that should be generated as of 03/15/2019 only Series and Parallel are supported.</param>
+            <param name="queue">Concurrent queue to push the completed designs into.</param>
+            <param name="func">Optional parameter, a function delegate that returns a boolean, and takes two integer inputs. As of 03/15/2019 only used with <see cref="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)"/>.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Factories.DesignFactory.Designs">
+            <summary>
+            List of designs.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Factories.LaminationFactory">
+            <summary>
+            Creates and stores a list of laminations based on given parameters.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Factories.LaminationFactory.#ctor(TransformerOptimizer.Parameters.RangeCombinationSkips{System.Int32},TransformerOptimizer.Parameters.RangeInteger,TransformerOptimizer.Parameters.RangeInteger,TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Parameters.RangeInteger,TransformerOptimizer.Parameters.RangeInteger,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>
+            Constructor.
+            
+            Generates a list of laminations based on the given parameters.
+            As of 03/15/2019 <paramref name="yokeRange"/> does nothing as the standard laminations have a supplied dimension and cut to length laminations will determine the yoke size using <see cref="M:TransformerOptimizer.Data.Constants.DetermineYoke(TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Phase,System.Double)"/>
+            </summary>
+            <param name="rangeSkips">RangeCombinationSkips representing which combinations of grades and thickness should be skipped.</param>
+            <param name="stdLaminationsRange">IterableRange representing if both standard and cut to length laminations should be created.</param>
+            <param name="shapeRange">IterableRange representing the range of core shapes to create with.</param>
+            <param name="phase">Which phase to create for.</param>
+            <param name="gradeRange">IterableRange representing the range of grades to create with.</param>
+            <param name="thicknessRange">IterableRange representing the range of thickness to create with.</param>
+            <param name="tongueRange">IterableRange representing the range of tongues to create with.</param>
+            <param name="yokeRange">IterableRange representing the range of yokes to create with.</param>
+            <param name="windowWidthRange">IterableRange representing the range of window widths to create with.</param>
+            <param name="windowHeightRange">IterableRange representing the range of window heights to create with.</param>
+            <param name="func">Optional parameter, a function delegate that returns a boolean, and takes two integer inputs. As of 03/15/2019 only used with <see cref="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)"/>.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Factories.LaminationFactory.#ctor(TransformerOptimizer.Parameters.RangeLaminationDetails,TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,TransformerOptimizer.Parameters.RangeDouble,System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>
+            Constructor.
+            
+            Generates a list of laminations based on the given parameters.
+            As of 03/15/2019 <paramref name="yokeRange"/> does nothing as the standard laminations have a supplied dimension and cut to length laminations will determine the yoke size using <see cref="M:TransformerOptimizer.Data.Constants.DetermineYoke(TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Phase,System.Double)"/>
+            </summary>
+            <param name="rangeLams">RangeLaminationDetails representing the range of laminations to iterate with.</param>
+            <param name="phase">Which phase to create for.</param>
+            <param name="tongueRange">IterableRange representing the range of tongues to create with.</param>
+            <param name="yokeRange">IterableRange representing the range of yokes to create with.</param>
+            <param name="windowWidthRange">IterableRange representing the range of window widths to create with.</param>
+            <param name="windowHeightRange">IterableRange representing the range of window heights to create with.</param>
+            <param name="func">Optional parameter, a function delegate that returns a boolean, and takes two integer inputs. As of 03/15/2019 only used with <see cref="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)"/>.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Factories.LaminationFactory.Laminations">
+            <summary>
+            List of laminations.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Components.Factories.WindingFactory">
+            <summary>
+            Creates and stores a list of list of windings based on given parameters.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Components.Factories.WindingFactory.#ctor(System.Collections.Generic.List{TransformerOptimizer.Components.Base.Winding},System.Boolean,System.Func{System.Int32,System.Int32,System.Boolean})">
+             <summary>
+             Constructor.
+            
+             Generates a list of list of windings for the design.
+             
+             Taking in a list of base windings that contain no wires; a lists of wires that satisfy the conditions of each section in the windings as generated.        
+             
+             Note: As the sections do not 'know' if they are to be used on an EI or UI style lamination and do not 'know' if they would be connected in series or parallel in the case of a UI lamination.
+             The wires are found always using the full section current. Meaning that current density ranges for parallel windings would have to be half of the desired range.
+             If using both series/EI and parallel the current density range may become too large to operate over in a resonable amount of time.
+             
+             If not wires are found meeting a sections' conditions a <see cref="T:TransformerOptimizer.Exceptions.Exceptions.NoWiresFound"/> is thrown.
+             
+             For each wire combination with a winding, a new winding object is created and put into a list with the other windings corresponding to a design.
+             Once all windings and the respective lists are generated, the collection can be permutated to create more combinations.
+             Permutations will keep the same section order within the winding, but allow the winding order to change.
+             
+             Note: Permutations are on the order of N^2, be careful of large combinations of windings.
+             
+             Example: Base Windings - A, B
+                      Wires - A1, A2, B1, C1, C2
+                      
+                      Winding Combinations - {A.A1, B.B1}, {A.A2, B.B1}
+                      Permutations - {A.A1, B.B1}, {B.B1, A.A1}, {A.A2, B.B1}, {B.B1, A.A2}
+                     
+             </summary>
+             <param name="baseWindings">A list of windings to be the base for each generated winding.</param>
+             <param name="usePermutations">Whether or not windings should be permutated in order to find possibly better designs.</param>
+             <param name="func">Optional parameter, a function delegate that returns a boolean, and takes two integer inputs. As of 03/15/2019 only used with <see cref="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)"/>.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Components.Factories.WindingFactory.Windings">
+            <summary>
+            List of list of windings.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants">
+            <summary>
+            Static class that holds constants used thoughtout the program.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.LaminationDetails">
+            <summary>
+            Represents a lamination to iterate.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.LaminationDetails.#ctor(System.Boolean,TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Grade,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="isStd">If the lamination would be a standard lamination or not.</param>
+            <param name="shape">Shape of the lamination.</param>
+            <param name="grade">Grade of the lamination.</param>
+            <param name="thickness">Lamination thickness.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.LaminationDetails.IsStandard">
+            <summary>
+            If the lamination would be a standard lamination or not.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.LaminationDetails.Shape">
+            <summary>
+            Shape of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.LaminationDetails.Grade">
+            <summary>
+            Grade of the lamination.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.LaminationDetails.Thickness">
+            <summary>
+            Lamination thickness.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.DuctLocation">
+            <summary>
+            How the ducts will be placed around the winding/layer.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.DuctLocation.NONE">
+            <summary>
+            No ducts will be placed; this shouldn't be needed.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.DuctLocation.FRONT_AND_BACK">
+            <summary>
+            Ducts will be placed at the front and back of the coil.
+            
+            This will not affect the build.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.DuctLocation.ALL_AROUND">
+            <summary>
+            Ducts will be placed on all sides of the coil.
+            
+            This will affect the build.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.DuctLocation.THREE_SIDED">
+            <summary>
+            Ducts will be placed on three sides of the coil; use this only with UI cores.
+            
+            This will not affect the build.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetDuctLocation(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> from user input.
+            
+             As of 04/09/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> corresponding to user input.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetDuctLocation(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> from user input.
+            
+             As of 04/09/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> corresponding to user input.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetDuctLocation(System.String)">
+            <summary>
+            Returns <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> from user input.
+            
+            As of 04/09/2019 no input checking is provided, this method defaults to <see cref="F:TransformerOptimizer.Data.Constants.DuctLocation.NONE"/>.
+            </summary>
+            <param name="value">Enum value to find with name of.</param>
+            <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.DuctLocation"/> corresponding to user input.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.LaminationType">
+            <summary>
+            Type of lamination, either standard or cut-to-length.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.LaminationType.STANDARD">
+            <summary>
+            Lamination will be loaded lamination from <see cref="T:TransformerOptimizer.Data.LoadedData.StandardLaminations"/> class.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.LaminationType.CUT_TO_LENGTH">
+            <summary>
+            Lamination will be created by user entered data.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationType(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> from user input.
+            
+             As of 03/18/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> corresponding to user input.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationType(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> from user input.
+            
+             As of 03/18/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> corresponding to user input.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationType(System.String)">
+            <summary>
+            Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> from user input.
+            
+            As of 03/18/2019 no input checking is provided, this method defaults to <see cref="F:TransformerOptimizer.Data.Constants.LaminationType.CUT_TO_LENGTH"/>.
+            </summary>
+            <param name="value">Enum value to find with name of.</param>
+            <returns>Value of <see cref="T:TransformerOptimizer.Data.Constants.LaminationType"/> corresponding to user input.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.ToStringType">
+            <summary>
+            Determines what the output of calling ToString() on an optimizer object is. As of 04/01/2019 this enum is not is use.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.ToStringType.BASIC">
+            <summary>
+            Print a basic summary of the object.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.ToStringType.VERBOSE">
+            <summary>
+            Print an enhanced summary of the object.
+            </summary>            
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.CoreShape">
+            <summary>
+            What types of core shapes are available.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.CoreShape.EI">
+            <summary>
+            Lamination consisting of an E-piece and an I-piece.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.CoreShape.UI">
+            <summary>
+            Lamination consisting of a U-piece and an I-piece.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.CoreShape.FiveLegged">
+            <summary>
+            Five legged lamination, should probably only be used with three phase cut-to-length laminations.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetCoreShape(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.CoreShape"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Type of core shape.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetCoreShape(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.CoreShape"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Type of core shape.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetCoreShape(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.CoreShape"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Type of core shape.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.UIStyle">
+            <summary>
+            Different styles of how a UI lamination design can have its' windings connected.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.UIStyle.NA">
+            <summary>
+            Default style passed to a design.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.UIStyle.SERIES">
+            <summary>
+            Windings to be connected in series.
+            
+            Voltage in each winding is one half the total.
+            Current in each winding is equal to the total.
+            Turns in each winding are one half the total.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.UIStyle.PARALLEL">
+            <summary>
+            Windings to be connected in parallel.
+            
+            Voltage in each winding is equal to the total.
+            Current in each winding is one half the total.
+            Turns in each winding are equal to the total.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetUIStyle(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.UIStyle"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Type of the UI style.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetUIStyle(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.UIStyle"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Type of the UI style.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetUIStyle(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.UIStyle"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Type of the UI style.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.Phase">
+            <summary>
+            Different phases that the transformer is rated for.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Phase.SINGLE">
+            <summary>
+            Program assumes one coil on middle leg of core for EI and two coils for UI.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Phase.THREE">
+            <summary>
+            Program assumes three coils, one on each leg of core.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetPhase(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Phase"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding phase value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetPhase(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Phase"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding phase value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetPhase(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Phase"/> from user input.
+            
+             As of 04/01/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding phase value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.Connection">
+            <summary>
+            Different connection types a winding can have.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Connection.OPEN">
+            <summary>
+            Winding is not connected in any special way.
+            
+            All single phase designs should use this connection type.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Connection.DELTA">
+            <summary>
+            Windings are connected in a delta fashion.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Connection.WYE">
+            <summary>
+            Windings are connected in a wye fashion.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetConnection(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Connection"/> from user input.
+            
+             As of 04/03/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding connection value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetConnection(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Connection"/> from user input.
+            
+             As of 04/03/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding connection value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetConnection(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Connection"/> from user input.
+            
+             As of 04/03/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding connection value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.Grade">
+            <summary>
+            Grade of the lamination to be used.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M6">
+            <summary>
+            Possible sizes: 29M6.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M19">
+            <summary>
+            Possible sizes: 26M19, 24M19.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M50">
+            <summary>
+            Possible sizes: 26M50, 24M50.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M12">
+            <summary>
+            Possible sizes: 29M12.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M085_ButtLap">
+            <summary>
+            Possible sizes: 0.009
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Grade.M085_StepLap">
+            <summary>
+            Possible sizes: 0.009
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetGrade(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Grade"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding grade value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetGrade(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Grade"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding grade value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetGrade(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Grade"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding grade value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.LaminationThickness">
+            <summary>
+            Thickness of the lamination to be used.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.LaminationThickness._29">
+            <summary>
+            0.014
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.LaminationThickness._26">
+            <summary>
+            0.0185
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.LaminationThickness._24">
+            <summary>
+            0.025
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationThickness(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationThickness"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding lamination thickness value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationThickness(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationThickness"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding lamination thickness value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetLaminationThickness(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.LaminationThickness"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding lamination thickness value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.WireMaterial">
+            <summary>
+            Different materials that a wire can be made of.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireMaterial.ALUMINUM">
+            <summary>
+            Wire made up of aluminum. Currently only rectangular aluminum wire is supported.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireMaterial.COPPER">
+            <summary>
+            Wire made up of copper. Currently both round and rectangular wires are supported.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireMaterial.ANY">
+            <summary>
+            Wire made up of copper or aluminum. Round and rectangular wires are determined during iteration.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireMaterial(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireMaterial"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding wire material value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireMaterial(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireMaterial"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding wire material value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireMaterial(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireMaterial"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding wire material value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.WireShape">
+            <summary>
+            Different shapes that a wire can be made of.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireShape.ROUND">
+            <summary>
+            Round wire shape, currently only supported by copper wires.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireShape.RECTANGULAR">
+            <summary>
+            Rectangular wire shape, currently supported by both aluminum and copper wires.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireShape.FOIL">
+            <summary>
+            Foil wrapping instead of wire, currently supported by both aluminum and copper.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.WireShape.ANY">
+            <summary>
+            Either round or rectangular shape, shape is determined in iteration.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireShape(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireShape"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding wire shape value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireShape(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireShape"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding wire shape value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetWireShape(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.WireShape"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding wire shape value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.Bifilar">
+            <summary>
+            Arrangement of combining mutliple wires into one.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Bifilar._1H1W">
+            <summary>
+            Default wire choice, a single wire.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Bifilar._1H2W">
+            <summary>
+            Two wires side by side.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Bifilar._1H3W">
+            <summary>
+            Three wires side by side.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Bifilar._1H4W">
+            <summary>
+            Four wires side by side.
+            </summary>
+        </member>
+        <member name="F:TransformerOptimizer.Data.Constants.Bifilar._XH1W">
+            <summary>
+            X wires stacked on top of each other, should be used in Foil windings only.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetBifilar(System.Int32)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Bifilar"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Integer value in enum list.</param>
+             <returns>Corresponding bifilar value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetBifilar(System.Double)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Bifilar"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Double value converted to integer in enum list.</param>
+             <returns>Corresponding bifilar value.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GetBifilar(System.String)">
+             <summary>
+             Returns <see cref="T:TransformerOptimizer.Data.Constants.Bifilar"/> from user input.
+            
+             As of 04/04/2019 no input checking is provided.
+             </summary>
+             <param name="value">Enum value to find with name of.</param>
+             <returns>Corresponding bifilar value.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.GradeThicknesses">
+            <summary>
+            Contains the different thickness that each grade is able to use.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.GradeThicknesses.GetGradeThickness(TransformerOptimizer.Data.Constants.Grade,System.Int32,System.Double@)">
+            <summary>
+            Return the corresponding thickness for a certain grade and lamination thickness.
+            
+            As of 04/04/2019 this should probably be an extension method and enum attributes.
+            </summary>
+            <param name="grade">The grade of the lamination.</param>
+            <param name="thicknessIndex">The index of the lamination thickness.</param>
+            <param name="thickness">Out parameter for the corresponding thickness.</param>
+            <returns>Whether given <paramref name="grade"/> and <paramref name="thicknessIndex"/> are valid combinations.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.Constants.CoreFactors">
+            <summary>
+            Contains different factors that lamination grades have on calculated values.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M6DestructionFactor">
+            <summary>
+            The native destruction factor for M6 laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M19DestructionFactor">
+            <summary>
+            The native destruction factor for M19 laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M50DestructionFactor">
+            <summary>
+            The native destruction factor for M50 laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M6ExcitationFactor">
+            <summary>
+            The native excitation factor for M6 laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M19ExcitationFactor">
+            <summary>
+            The native excitation factor for M19 laminations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.Constants.CoreFactors.M50ExcitationFactor">
+            <summary>
+            The native excitation factor for M50 laminations.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.CoreFactors.GetDestructionFactor(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Returns the native destruction factor for a given grade. If the grade is not found, 9999 is returned, which should fail any design.
+            
+            As of 04/04/2019 ideally this should probably be an extension method and enum attribute.
+            </summary>
+            <param name="grade">Grade to lookup.</param>
+            <returns>The destruction factor of the given grade.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.CoreFactors.GetExcitationFactor(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Returns the native excitation factor for a given grade. If the grade is not found, 9999 is returned, which should fail any design.
+            
+            As of 04/04/2019 ideally this should probably be an extension method and enum attribute.
+            </summary>
+            <param name="grade">Grade to lookup.</param>
+            <returns>The excitation factor of the given grade.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.Constants.DetermineYoke(TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Phase,System.Double)">
+            <summary>
+            Determines the yoke size of a given lamination.
+            
+            As of 04/04/2019 there is no support for custom yoke size and standard laminations are not given a yoke size.
+            </summary>
+            <param name="coreShape">Shape of the lamination.</param>
+            <param name="phase">Phase of the design.</param>
+            <param name="tongue">Tongue size of the lamination.</param>
+            <returns>The yoke size for the lamination.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData">
+            <summary>
+            Static class that contains other static class regarding loaded data.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.Wires">
+            <summary>
+            Static class that contains a list of all standard wires. 
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Wires._wires">
+            <summary>
+            List of wires.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Wires.#cctor">
+             <summary>
+             Static constructor.
+            
+             Loads wires from an optimizer database.
+             As of 03/15/2019 it only loads from a particular database.
+             </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Wires.GetWires(TransformerOptimizer.Data.Constants.WireMaterial,TransformerOptimizer.Data.Constants.WireShape[],TransformerOptimizer.Data.Constants.Bifilar[],System.Double,System.Double,TransformerOptimizer.Components.Base.Section)">
+            <summary>
+            Returns a list of wires that pass the given parameters.
+            
+            All wires will be iterated of the range of bifilars supplied.            
+            As only 1H1W wires are considered standard, if a bifilar would create a passing wire with a bifilar that is not 1H1W, that wire will be created.
+            
+            Note: Round wires can only have a bifilar of 1H1W, if bifilar range contains values other than 1H1W, those values will be skipped for round wires.
+            
+            As of 04/22/2019 with the addition of the section parameter and min and max CD checking, this would make sense to become an extension method.
+            </summary>
+            <param name="wireMaterial">Wires of certain material to be returned, if ANY, then all materials are looked at.</param>
+            <param name="wireShapes">Wires of certain shape to be returned, if ANY, then all shapes are looked at.</param>
+            <param name="bifilars">Range of bifilars to iterate over.</param>
+            <param name="minimumCSA">Minimum cross sectional area of the wire.</param>
+            <param name="maximumCSA">Maximum cross sectional area of the wire.</param>
+            <param name="section">Optional, section wires are determined for; used for checking max and min current density ranges for any material.</param>
+            <returns></returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.Tubes">
+            <summary>
+            Static class that contains a list of all standard tubes. 
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Tubes._tubes">
+            <summary>
+            List of tubes.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Tubes.#cctor">
+             <summary>
+             Static constructor.
+            
+             Loads tubes from an optimizer database.
+             As of 03/15/2019 it only loads from a particular database.
+             </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Tubes.GetTube(System.Double,System.Double,TransformerOptimizer.Components.Base.Tube@)">
+            <summary>
+            Gets the tube that fits the closest for a given core.
+            
+            Checks tubes both the standard way and if the tubes would be rotated.
+            </summary>
+            <param name="tongue">Core/Lamination tongue size.</param>
+            <param name="stack">Core stack.</param>
+            <param name="tube">out parameter, the tube that is closest to fitting with the given parameters.</param>
+            <returns>If the tube is rotated or not. True = rotated, False = standard.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Tubes.GetClosestTube(TransformerOptimizer.Components.Base.Tube,TransformerOptimizer.Components.Base.Tube)">
+            <summary>
+            Determines which tube would provide the closest fit.
+            
+            No core/lamination details are needed because the two tubes would already be the closest matches to those details.
+            </summary>
+            <param name="standard">Tube that is not rotated.</param>
+            <param name="rotated">Tube that is rotated.</param>
+            <returns>Whichever tube is the closest fit.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.StandardLaminations">
+            <summary>
+            Static class that contains a list of all standard laminations. 
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.StandardLaminations.__laminations">
+            <summary>
+            List of laminations.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.StandardLaminations.#cctor">
+             <summary>
+             Static constructor.
+            
+             Loads laminations from an optimizer database.
+             As of 03/15/2019 it only loads from a particular database.
+             </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.StandardLaminations.GetLaminations">
+            <summary>
+            Returns contained list of laminations.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.StandardLaminations.GetLaminations(TransformerOptimizer.Data.Constants.CoreShape,TransformerOptimizer.Data.Constants.Phase,TransformerOptimizer.Data.Constants.Grade,System.Double,System.Double,System.Double)">
+            <summary>
+            Returns a list of laminations that match given parameters, with a tongue that is bounded by [MinTongue, MaxTongue].            
+            </summary>
+            <param name="coreShape">Shape of the lamination.</param>
+            <param name="phase">Phase of the lamination.</param>
+            <param name="grade">Grade of lamination.</param>
+            <param name="thickness">Thickness of lamination.</param>
+            <param name="minTongue">Minimum tongue size of lamination.</param>
+            <param name="maxTongue">Maximum tongue size of lamination.</param>
+            <returns>A list of all laminations that meet given parameters.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.Prices">
+            <summary>
+            Static class that contains price information for various materials. 
+            
+            Prices are stored as decimal but often converted to double.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Prices.#cctor">
+             <summary>
+             Static constructor.
+            
+             Loads prices from an optimizer database.
+             As of 03/15/2019 it only loads from a particular database.
+             </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M6Surchage">
+            <summary>
+            Price of M6 surcharge in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M19Surchage">
+            <summary>
+            Price of M19 surcharge in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M50Surchage">
+            <summary>
+            Price of M50 surcharge in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M6DollarsPerPound">
+            <summary>
+            Price of M6 in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M12DollarsPerPound">
+            <summary>
+            Price of M12 in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M19DollarsPerPound">
+            <summary>
+            Price of M19 in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M50DollarsPerPound">
+            <summary>
+            Price of M50 in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M085_ButtLapDollarsPerPound">
+            <summary>
+            Price of M085 Butt Lap in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.M085_StepLapDollarsPerPound">
+            <summary>
+            Price of M085 Step Lap in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.CopperPrice">
+            <summary>
+            Price of copper wire in $/Lb.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.Prices.AluminumPrice">
+            <summary>
+            Price of aluminum wire in $/Lb.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Prices.GetMaterialDollarsPerPound(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Get the cost of a given grade of steel in $/Lb.
+            
+            Returns $9999 if grade is not found, as of 03/15/2019 no checks are in place to remove designs that have such a price.
+            </summary>
+            <param name="grade">Grade of steel to get price of.</param>
+            <returns>Price of the price for given steel in $/Lb.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Prices.GetMaterialSurcharge(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Get the surcharge amount on a given grade of steel in $/Ton.
+            
+            Returns $9999 if grade is not found, as of 03/15/2019 no checks are in place to remove designs that have such a price.
+            </summary>
+            <param name="grade">Grade of steel to get surcharge price of.</param>
+            <returns>Price of the surcharge for given steel.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Prices.GetWireMaterialPrice(TransformerOptimizer.Data.Constants.WireMaterial)">
+            <summary>
+            Get the material price of a given wire material.
+            </summary>
+            <param name="wireMaterial">Wire material to get price of.</param>
+            <returns>Price of wire material.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.CoreLosses">
+            <summary>
+            Static class that contains core losses for various grade and thickness combinations at different flux densities and frequencies.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses._Losses">
+            <summary>
+            Holder of Losses objects.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.CoreLosses.#cctor">
+            <summary>
+            Static constructor.
+            
+            Initializes list and fills it with Losses objects that each contain a value from an optimizer database.
+            As of 03/15/2019 it only loads from a particular database.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.CoreLosses.GetCoreLosses(System.Double,System.Double,System.Int32,System.String)">
+            <summary>
+            Determines what the core losses would be in W/Lb with given parameters.
+            
+            If the exact values for flux density are not found, the function will use linear interpolation to find the core losses.
+            </summary>
+            <param name="FluxDensity">Flux Density of the core.</param>
+            <param name="Thickness">Thickness of the lamination.</param>
+            <param name="Frequency">Operating frequency of the core.</param>
+            <param name="Grade">Grade of the lamination.</param>
+            <returns>The core losses to expect with the given parameters in W/Lb.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses">
+            <summary>
+            Container object for each record in database, as of 03/15/2019 only database loading is supported so therefore the records can only come from a database.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.#ctor(System.Double,System.Double,System.Double,System.Int32,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="FluxDensity">Flux Density the losses occur at.</param>
+            <param name="Thickness">Thickness of the grade of steel.</param>
+            <param name="CoreLosses">Core Losses at other given parameters.</param>
+            <param name="Frequency">Frequency the losses occur at.</param>
+            <param name="Grade">Grade of steel.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.FluxDensity">
+            <summary>
+            Flux Density losses occur at.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.Thickness">
+            <summary>
+            Thickness of the grade of steel.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.CoreLosses">
+            <summary>
+            Core Losses at other given parameters.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.Frequency">
+            <summary>
+            Frequency the losses occur at.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Data.LoadedData.CoreLosses.Losses.Grade">
+            <summary>
+            Grade of steel.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Data.LoadedData.Laminations">
+            <summary>
+            Static class that contains the laminations and their thicknesses.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.#cctor">
+            <summary>
+            Static constructor.
+            
+            Initializes dictionary loads it with lamination data from an optimizer database.
+            As of 04/17/2019 it only loads from a particular database.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.GetGrades">
+            <summary>
+            Returns the grades that have data available.
+            </summary>
+            <returns>Array of available grades.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.GetDataForGrade(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Gets the tuple of data associated with the given grade.
+            
+            Returned tuple has three items.
+            Item1 is a boolean representing if the grade can be used as a standard lamination.
+            Item2 is a boolean representing if the grade can be used as a cut-to-length lamination.
+            Item3 is an array oif double representing the thickness the lamination comes in.
+            </summary>
+            <param name="grade">Grade to get data of.</param>
+            <returns>Data of the grade.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.ValidStandard(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Returns if the grade can be used as a standard lamination.
+            </summary>
+            <param name="grade">Grade to get data of.</param>
+            <returns>Can the grade be used as a standard lamination.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.ValidCutToLength(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Returns if the grade can be used as a cut-to-length lamination.
+            </summary>
+            <param name="grade">Grade to get data of.</param>
+            <returns>Can the grade be used as a cut-to-length lamination.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Data.LoadedData.Laminations.Thicknesses(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Returns an array of double representing the thickness the lamination comes in.
+            </summary>
+            <param name="grade">Grade to get data of.</param>
+            <returns>An array of double representing the thickness the lamination comes in.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Design">
+            <summary>
+            Represents an individual transformer.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Design.#ctor(TransformerOptimizer.Components.Base.Specification,TransformerOptimizer.Components.Base.Core,System.Boolean,TransformerOptimizer.Components.Base.Tube,System.Collections.Generic.List{TransformerOptimizer.Components.Base.Winding},TransformerOptimizer.Data.Constants.UIStyle)">
+            <summary>
+            Constructor.                
+            </summary>
+            <param name="specification">Specification for the design, used to get operating frequency.</param>
+            <param name="core">Core to be used in this design.</param>
+            <param name="rotatedTube">Whether or not the tube to be used is rotated or not.</param>
+            <param name="tube">Tube to be placed over core legs.</param>
+            <param name="windings">Windings that will be used in this design.</param>
+            <param name="uiStyle">Optional, how the windings will be connected if a UI core is used.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Design.PerformCalculations">
+            <summary>
+            When called, the design will calculate its' values.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Design.PerformValidation(TransformerOptimizer.Parameters.FailureParameters)">
+            <summary>
+            Determines if the design will be considered a pass or a fail.
+            Compares the calculated values of the design with the limits set in <paramref name="failure"/>.
+            
+            Note: 04/03/2019 this probably should be removed, or at least be made into a function that returns a boolean based on a given failure options so that it can be a dynamic range of pass/fail.
+            </summary>
+            <param name="failure">Limits for the design to pass/fail.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Nulled">
+            <summary>
+            Whether or not the design is considered 'Null'.
+            
+            A design is 'Null' if the <see cref="P:TransformerOptimizer.Components.Base.Section.NumberOfLayers"/> of any section in the design is less than or equal to 0.
+            This is typically caused by having design parameters that are too small for a design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Passed">
+            <summary>
+            Whether or not the design is considered to have passed its' conditions.
+            See <see cref="M:TransformerOptimizer.Design.PerformValidation(TransformerOptimizer.Parameters.FailureParameters)"/> for more information on passing and failing.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.AdjustedFlux">
+            <summary>
+            Returns the adjusted flux value of the design based on the calculated number of turns.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Build">
+            <summary>
+            The percent of window space used in this design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.BuildUp">
+            <summary>
+            The amount of space in the window a single coil takes up.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.TemperatureRise">
+            <summary>
+            The temperature rise of the design.
+            
+            As of 04/03/2019:
+                For EI designs Reuben Lee's equation (see pg. 55 of Electronic Transformers and Circuits Third Edition 1988)
+                For UI designs the temperature is 0.7 * Reuben Lee's equation.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Specification">
+            <summary>
+            The specification parameters of the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Core">
+            <summary>
+            The core used by the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Tube">
+            <summary>
+            The tube placed over the core legs.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.RotatedTube">
+            <summary>
+            Whether or not the tube used by the design is rotated or not.
+            
+            Note: a handmade tube is always considered to not be rotated.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Windings">
+            <summary>
+            The windings that are used by this design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CompensationFactor">
+            <summary>
+            A factor to increase the number of turns in the secondary windings.
+            
+            This factor is hardcoded to 1.02, or a 2% increase in turns calculated.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.IsEI">
+            <summary>
+            Whether the core used is an EI shape.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.IsUI">
+            <summary>
+            Whether the core used is a UI shape.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.UIStyle">
+            <summary>
+            The style in which the windings will be connected is the core is a UI shape.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.DesignID">
+            <summary>
+            ID of this design.
+            
+            As of 04/03/2019 there is really no special logic here; calls GetHashCode() and returns string of value.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.IsThreePhase">
+            <summary>
+            Whether the design is three phase or not.
+            
+            Note: if any windings are three phase, then the entire design is three phase.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.AdjustedFluxDensity">
+            <summary>
+            The flux density of the design using the calculated <see cref="P:TransformerOptimizer.Design.AdjustedFlux"/> value.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Flux">
+            <summary>
+            The supplied flux of the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Height">
+            <summary>
+            Returns the height of the design, taken with windows facing 'viewer' and legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Width">
+            <summary>
+            Returns the width of the design, taken with windows facing 'viewer' and legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Depth">
+            <summary>
+            Returns the depth of the design, taken with windows facing 'viewer' and legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Weight">
+            <summary>
+            Returns the total weight of the design.
+            
+            As of 04/03/2019 only the core and winding weights are taken into consideration.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Cost">
+            <summary>
+            Returns the total cost of the design.
+            
+            As of 04/03/2019 only the core and winding costs are taken into consideration.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CostRatio">
+            <summary>
+            Ratio of the cost of the core and the cost of the coils.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.RatedVA">
+            <summary>
+            Rated kVA of the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.RatedPhasekVA">
+            <summary>
+            Rated kVA of the design in a single phase.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CalcedPhasekVA">
+            <summary>
+            Adjusted kVA of the design including an increased primary current in order to feed the losses calculated by this design in a single phase.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Losses">
+            <summary>
+            The losses generated by this design.
+            
+            As of 04/03/2019 only core losses and coil losses are taken into consideration, no eddy current or stray losses.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.Efficiency">
+            <summary>
+            Calculated efficiency of the design.
+            
+            As of 04/03/2019 it is calculated simply with kVA and Losses, no D.O.E. or other testing parameters are used.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.DoeEfficiency">
+            <summary>
+            Calculated doe efficiency of the design.
+            
+            Load = 35%
+            Operating temperature = 75°C        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CsvHeaders">
+            <summary>
+            String containing all the column headers to be used when printing a design.
+            
+            As of 04/03/2019, this property is really bad, this should be moved to either a static property or require user to print out fields manually.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CsvData">
+            <summary>
+            String containing all the column data to be used when printing a design.
+            
+            As of 04/03/2019, this property is really bad, should make users get the fields they want individually.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Design.CsvDataSplit">
+            <summary>
+            String array containing all the column headers to be used when printing a design.
+            
+            As of 04/03/2019, this property is really bad, this should be moved to either a static property or require user to print out fields manually.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Design.JsonConvertObject">
+            <summary>
+            Returns a string represnting this design in JSON format.
+            
+            As of 04/03/2019, this property is really bad, even though I tried to mark properties are non-serializable they got serialized anyway, causing some pretty massive recursion loops in the sections/windings.        
+            TODO: create a constructor would load a passed JSON string.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Design.GetByteArray">
+            <summary>
+            Returns the byte array of this design from binary serialization.
+            
+            As of 04/03/2019, this property is probably bad, I have done much testing on this.
+            /// TODO: create a constructor would load a passed byte array.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions">
+            <summary>
+            Static class containing different types of exceptions thrown by this DLL.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException">
+            <summary>
+            Custom exception class used to determine is thrown exception is from an optimization operation or generic exception.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.IterationFinishedException">
+            <summary>
+            Thrown when an IterableRange object increments its' value to the maximum and the IterableRange object does not have any reference to another in its' Next field.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.IterationFinishedException.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.IterationFinishedException.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.IterationFinishedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.NoWiresFound">
+            <summary>
+            Thrown if no wires could be found to meet the critera provided by a section. 
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoWiresFound.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoWiresFound.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoWiresFound.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.NoCoresFound">
+            <summary>
+            Thrown if no cores could be found to meet the critera provided by user.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoCoresFound.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoCoresFound.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.NoCoresFound.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreThicknessIteration">
+            <summary>
+            Thrown if the given core/lamination thickness is not a valid number.
+            Should not be thrown 03/15/2019 as core/lamination factories will just skip them and increment the value.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreThicknessIteration.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreThicknessIteration.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreThicknessIteration.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreGradeIteration">
+            <summary>
+            Thrown if the given core/lamination grade is not a valid option.
+            Should not be thrown 03/15/2019 as core/lamination factories will just skip them and increment the value.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreGradeIteration.#ctor">
+            <summary>
+            Base constructor.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreGradeIteration.#ctor(System.String)">
+            <summary>
+            Overloaded constructor for message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Exceptions.Exceptions.InvalidCoreGradeIteration.#ctor(System.String,System.Exception)">
+            <summary>
+            Overloaded constructor for message and inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="inner">Inner exception.</param>
+        </member>
+        <member name="T:TransformerOptimizer.Functions.Functions">
+            <summary>
+            Contains various functions used throughout the program.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.CurrentDensityMaterialFactor(System.Double,TransformerOptimizer.Data.Constants.WireMaterial)">
+            <summary>
+            Returns the current density adjusted for the maximum and minimum bounds used by different wire materials.
+            </summary>
+            <param name="cd">Unadjusted current density of the wire.</param>
+            <param name="wireMaterial">Material of the wire.</param>
+            <returns>Adjusted current density.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.DuctMeanLengthTurnIncrease(TransformerOptimizer.Components.Base.Duct)">
+            <summary>
+            Returns the increase in the <see cref="P:TransformerOptimizer.Components.Base.Section.LengthMeanTurn"/> in a section because of ducts.
+            
+            The base equation is k * BF * H
+             - k is a constant based on the duct style.
+             - BF is the bulge factor of the duct, this is hardcoded to 1.
+             - H is the duct height.
+            </summary>
+            <param name="duct">Duct to operate on.</param>
+            <returns>The increase in the mean length turn of a section.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.DuctBuildUpIncrease(TransformerOptimizer.Components.Base.Duct)">
+            <summary>
+            Return the increase in buildup in a section because of ducts.
+            </summary>
+            <param name="duct">Duct to operate on.</param>
+            <returns>The increase in the buildup of a section.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.LowestTapLosses(TransformerOptimizer.Components.Base.Winding,System.Double)">
+            <summary>
+            Extension method for a Winding to get the losses at the lowest tap. Optional parameter to set the operating temperature to get the losses at.
+            </summary>
+            <param name="winding">Winding to operate on.</param>
+            <param name="operatingTemperature">Optional; temperature at which the losses should be calculated at.</param>
+            <returns>Value of the losses at the windings lowest tap.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.GetGradeToString(TransformerOptimizer.Data.Constants.Grade)">
+            <summary>
+            Extension method for a <see cref="T:TransformerOptimizer.Data.Constants.Grade"/> to return it's name as a string.
+            
+            Uses extension method vs reflection because it should be better performance wise.
+            </summary>
+            <param name="grade">Grade to get name of.</param>
+            <returns>String name of grade.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.Losses(TransformerOptimizer.Components.Base.Core,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Extension method for core to get its' losses.
+            Uses core weight multiplied by lookup table/linear interpolation value of losses in W/Lb.
+            </summary>
+            <param name="core">Core to have its' losses calculated.</param>
+            <param name="adjustedFluxDensity">Adjusted Flux Density of the core.</param>
+            <param name="frequency">Frequency transformer is operating at.</param>
+            <param name="useLegWeights">If the losses should be calculated using only the leg weight.</param>
+            <returns>Total Core Losses</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.GetPermutations``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}},System.Int32,System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>
+            Gets the permutations of a sequence of sequences.
+            If using a single sequence it is about equivalent to the other GetPermutations function.
+            Able to call a function with two integer parameters and a boolean output.
+            </summary>
+            <typeparam name="T">Type of object in sequence.</typeparam>
+            <param name="list">Sequence to get permutations.</param>
+            <param name="length">Length of list.</param>
+            <param name="toCall">Optional function to call while calculating permutations.</param>
+            <returns>Sequence containing permutations of input sequences.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.GetPermutations``1(System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.Int32,System.Func{System.Int32,System.Int32,System.Boolean})">
+            <summary>        
+            Gets the permutations of a sequence of sequences.
+            If using a single sequence it is about equivalent to the other GetPermutations function.
+            Able to call a function with two integer parameters and a boolean output.
+            
+            Input and Output of this function use List{List{T}} instead on IEnumerable{IEnumerable{T}}."
+            </summary>
+            <typeparam name="T">Type of object in sequence.</typeparam>
+            <param name="list">Sequence to get permutations.</param>
+            <param name="length">Length of list.</param>
+            <param name="toCall">Optional function to call while calculating permutations.</param>
+            <returns>Sequence containing permutations of input sequences.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.GetPermutations``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Gets the permutations of a sequence.
+            </summary>
+            <typeparam name="T">Type of object in sequence.</typeparam>
+            <param name="list">Sequence to get permutations.</param>
+            <param name="length">Length of list.</param>
+            <returns>Sequence containing each permutation of sequences.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.CartesianProduct``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Extension Method
+            Creates an enumerable of the Cartesian Product of a sequence.
+            </summary>
+            <typeparam name="T">Type of Sequence</typeparam>
+            <param name="sequences">IEnumerable{IEnumerable{T}} sequence to be worked on</param>
+            <returns>Cartesian Product of the sequence</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.NumberOfWindings(System.Collections.Generic.IEnumerable{TransformerOptimizer.Components.Base.Section})">
+            <summary>
+            Determines the number of different windings references contained in a sequence of sections.
+            </summary>
+            <param name="sections">Sequence of sections.</param>
+            <returns>The number of different windings referenced within the different sections.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.GetSectionsForWinding(System.Collections.Generic.IEnumerable{TransformerOptimizer.Components.Base.Section},TransformerOptimizer.Components.Base.Winding)">
+            <summary>
+            Processes a sequence of sections and returns an IEnumerable of all the sections that are for a given winding.
+            </summary>
+            <param name="sections">IEnumerable{Section} Sequence to be processed.</param>
+            <param name="winding">Winding to which sections should be matched to.</param>
+            <returns>An IEnumerable{Section} of all the sections in the sequence that are for the given winding.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.LinearInterpolation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Performs linear interpolation for a value x.
+            </summary>
+            <param name="x">Undetermined Input</param>
+            <param name="yAbove">Closest value of result higher than x.</param>
+            <param name="yBelow">Closest value of result lower than x.</param>
+            <param name="xAbove">Closest value of input higher than x.</param>
+            <param name="xBelow">Closest value of input lower than x.</param>
+            <returns>Interpolated value for x.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.BifilarMultiplier(TransformerOptimizer.Data.Constants.Bifilar,TransformerOptimizer.Components.Base.Wire)">
+            <summary>
+            Returns the integer multiplier value for a given bifilar
+            </summary>
+            <param name="bifilar">Wire bifilar</param>
+            <param name="wire">Optional wire reference, mostly to be used with Foil windings.</param>
+            <returns>Integer multiplier of given bifilar</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.RemoveCornerRadius(TransformerOptimizer.Components.Base.Wire)">
+            <summary>
+            Uses MW-1000 (2006) for the corner radius of conductor
+            </summary>
+            <param name="wire">IWire to be calculated upon.</param>
+            <returns>Area of wire conductor minus the area removed by the corner radius of the conductor.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.InchToMeter(System.Double)">
+            <summary>
+            Converts from inches to meters.
+            </summary>
+            <param name="inches">Value of inches to convert.</param>
+            <returns>Converted value in meters.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Functions.Functions.SqInchToSqMilimeter(System.Double)">
+            <summary>
+            Converts from square inches to square millimeters.
+            </summary>
+            <param name="inches">Value of square inches to convert.</param>
+            <returns>Converted value in square milimeters.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Optimizer">
+            <summary>
+            Takes user design input and calculates every possible transformer and returns the results to the user.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.#ctor(System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="numberValThreads">Number of validation threads to create when running the optimizer.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.Initialize">
+            <summary>
+            Initialize the parameter ranges.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.GetRange(System.String)">
+            <summary>
+            Returns an IterableRange with the given name.
+            
+            IterableRange is a base class for most ranges so the result should be cast to whatever range is needed.
+            </summary>
+            <param name="name">Name of the IterableRange to find.</param>
+            <returns>The IterableRange that has the given name.</returns>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.LaminationSkips">
+            <summary>
+            Range of the laminations to skip; very confusing I know.
+            
+            As of 04/04/2019 this should be removed and a new way of generating laminations that just takes an array/list input so that the user can skip what they want.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.ToIterateLaminations">
+            <summary>
+            Laminations to iterate over.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.Run(System.Boolean)">
+            <summary>
+            Starts threads that will generate all of the possible designs from the input ranges.
+            
+            As of 04/04/2019 this should be called by another thread as it will lock up the calling thread untill it is finished.
+            Indeally, this may be able to be converted to an async function to allow the main thread to call it and get the result.
+            </summary>
+            <param name="usePermutations">Whether or not the winding factory should use all permutations of windings.</param>
+            <returns>A list of all the designs generated given the user input ranges.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.ThreadIsAlive">
+            <summary>
+            Whether a not any thread is alive/still running.
+            </summary>
+            <returns>Whether any thread is still running.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.AbortThreads">
+            <summary>
+            Aborts all currently running threads used by the optimizer.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.GenerateDesigns">
+            <summary>
+            Threaded function to generate the designs.
+            
+            Creates the laminations, then cores, then windings, then finally the designs.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.ValidateDesigns">
+            <summary>
+            Threaded function to iterate through the creation queue and call <see cref="M:TransformerOptimizer.Design.PerformCalculations"/> and <see cref="M:TransformerOptimizer.Design.PerformValidation(TransformerOptimizer.Parameters.FailureParameters)"/> then add it to the completed queue.
+            
+            As of 04/04/2019 how this works is multiple threads all run this method, and are locked out by the concurrent queue; ideally if there is one manager thread that distributes the designs across other thread queues it may be faster.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Optimizer.IncrementCurrentProcessProgress(System.Int32,System.Int32)">
+            <summary>
+            Determines what percent should be calculated for <see cref="P:TransformerOptimizer.Optimizer.CurrentProcessProgress"/>.
+            </summary>
+            <param name="value">The current 'index' of iterations.</param>
+            <param name="maxValue">The maximum number of iterations.</param>
+            <returns>True</returns>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Specification">
+            <summary>
+            Reference to design specification.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Failure">
+            <summary>
+            Reference to failure parameters.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Laminations">
+            <summary>
+            Reference to lamination factory.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Cores">
+            <summary>
+            Reference to core factory.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Windings">
+            <summary>
+            Reference to winding factory.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Designs">
+            <summary>
+            Reference to design factory.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.Finished">
+            <summary>
+            Set to True once all designs have been completed.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.FinishedGeneration">
+            <summary>
+            Whether or not <see cref="M:TransformerOptimizer.Optimizer.GenerateDesigns"/> has finished making all combinations.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.QueuedDesigns">
+            <summary>
+            Number of designs that have yet to have <see cref="M:TransformerOptimizer.Design.PerformCalculations"/> and <see cref="M:TransformerOptimizer.Design.PerformValidation(TransformerOptimizer.Parameters.FailureParameters)"/> ran on them.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.CompletedDesigns">
+            <summary>
+            Number of designs that have had <see cref="M:TransformerOptimizer.Design.PerformCalculations"/> and <see cref="M:TransformerOptimizer.Design.PerformValidation(TransformerOptimizer.Parameters.FailureParameters)"/> ran on them.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.PassedDesigns">
+            <summary>
+            Number of completed designs that are considered to be passing. See <see cref="P:TransformerOptimizer.Design.Passed"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.FailedDesigns">
+            <summary>
+            Number of completed designs that are considered failures. See <see cref="P:TransformerOptimizer.Design.Passed"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.NulledDesigns">
+            <summary>
+            Number of completed designs that are considered nulled. See <see cref="P:TransformerOptimizer.Design.Nulled"/>.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.TimeElapsed">
+            <summary>
+            How much time in milliseconds the optimizier is running for.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.HasException">
+            <summary>
+            Whether or not a <see cref="T:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException"/> was thrown when generating designs.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.ExceptionMessage">
+            <summary>
+            The message contained by a <see cref="T:TransformerOptimizer.Exceptions.Exceptions.TransformerOptimizerException"/> that occurs when generating designs.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.CurrentProcess">
+            <summary>
+            A string describing the current process.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Optimizer.CurrentProcessProgress">
+            <summary>
+            The percent finished of the current process.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.FailureParameters">
+            <summary>
+            Provides a holder object for all the parameters a design will be checked against to determine if it is 'Passed'.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumBuild">
+            <summary>
+            Maximum Build of the design in percent.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumTemperatureRise">
+            <summary>
+            Maximum Temperature Rise of the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumHeight">
+            <summary>
+            Maximum Height of the design, taken with windows facing 'viewer' and core legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumWidth">
+            <summary>
+            Maximum Width of the design, taken with windows facing 'viewer' and core legs vertical.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumDepth">
+            <summary>
+            Maximum Depth of the design, taken with windows facing 'viewer' and core legs vertical.        
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumWeight">
+            <summary>
+            Maximum Weight of the design, combined core + coil weights.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MaximumLosses">
+            <summary>
+            Maximum Losses in the design, combined core + coil losses
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MinimumEfficiency">
+            <summary>
+            Minimum Effeciency of the design.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.FailureParameters.MinimumDoeEfficiency">
+            <summary>
+            Minimum DOE Effeciency of the design.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.IterableRange">
+            <summary>
+            Base class of an iterable range.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="name">Name of the object.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange.Name">
+            <summary>
+            Name of the object.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange.NextRange">
+            <summary>
+            Reference to another IterableRange object, should be used in the implementation of IncrementValue().
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange.IncrementValue">
+            <summary>
+            Abstract function, implementation should make object iterate through values from MinValue to MaxValue with a step size of StepSize.
+            If the maximum value is exceeded, it should reset its' current value to the minimum and call IncrementValue of the IterableRange reference with NextRange.
+            If no IterableRange is referenced exception IterationFinishedException should be thrown.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange.Iterations">
+            <summary>
+            Abstract function, implementation should return the maximum number of iterations that will occur.
+            Numeric types can probably simply return (MaxValue - MinValue) / StepSize.
+            Other types will probably need to be have overloaded operators to do the same or have a more complex function.
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.IterableRange`1">
+            <summary>
+            Base class of an iterable range of type T. 
+            </summary>
+            <typeparam name="T">Type of Iterable Range, currently no restrictions as of 03/15/2019.</typeparam>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange`1.#ctor(System.String,`0,`0,`0)">
+            <summary>
+            Constructor.
+            Sets the current value of the object to the supplied minimum value.
+            </summary>
+            <param name="name">Name of the object.</param>
+            <param name="minValue">Minimum value for the iteration.</param>
+            <param name="maxValue">Maximum value for the iteration.</param>
+            <param name="stepSize">Step Size value for the iteration.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange`1.MinValue">
+            <summary>
+            Minimum value for the iteration.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange`1.MaxValue">
+            <summary>
+            Maximum value for the iteration.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange`1.StepSize">
+            <summary>
+            Step Size value for the iteration.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.IterableRange`1.CurrentValue">
+            <summary>
+            Current value of the object, bounded by [MinValue, MaxValue]
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange`1.SetRange(`0,`0,`0)">
+            <summary>
+            Sets the range of the object to the supplied parameters.
+            Sets the current value to supplied minimum value.
+            </summary>
+            <param name="minValue">Minimum value for the iteration.</param>
+            <param name="maxValue">Maximum value for the iteration.</param>
+            <param name="stepSize">Step Size value for the iteration.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange`1.SetCurrentValue(`0)">
+            <summary>
+            Sets the current value of CurrentValue.
+            A publicly exposed version of the protected internal set of CurrentValue.
+            Currently (03/15/2019) no verification on value, should be made to restrict value to be within bounds [MinValue, MaxValue]
+            </summary>
+            <param name="value">What the current value should be set to.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange`1.GetEnumerator">
+            <summary>
+            Abstract function, implementation should return IEnumerator for object.
+            </summary>
+            <returns>IEnumerator of object, values from the minimum to maximum in objects step size increments.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.IterableRange`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Required by IEnumerable; returns value of GetEnumerator().
+            </summary>
+            <returns>Reference to abstract function GetEnumerator().</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.RangeCombinationSkips`1">
+            <summary>
+            Determines if certain value/values should be skipped during iteration.
+            
+            Honestly pretty confusing, values must be of same type but different values.
+            Current usage is for comparing two enum's, as they can be cast down to two integers.    
+            </summary>
+            <typeparam name="T">Type to store, must implement IEquatable, no other restrictions as of 03/15/2019.</typeparam>
+        </member>
+        <member name="F:TransformerOptimizer.Parameters.RangeCombinationSkips`1.list">
+            <summary>
+            List of holder objects
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeCombinationSkips`1.#ctor">
+            <summary>
+            Constructor.
+            Initializes list.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeCombinationSkips`1.AddSkipValues(`0,`0)">
+            <summary>
+            Adds a new holder object to the list.
+            </summary>
+            <param name="field1">Field1 of holder object.</param>
+            <param name="field2">Field2 of holder object.</param>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeCombinationSkips`1.Clear">
+            <summary>
+            Clears the list.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeCombinationSkips`1.SkipValue(`0,`0)">
+            <summary>
+            Determines if the given combination of fields should be skipped.
+            
+            As of 03/15/2019 only usage is determining whether or not skip a certain grade and thickness combination.    
+            
+            Example: Each field is an index in two seperate arrays and each field increments from 1 to 4, representing a streets and houses on the street.
+                     If the number of houses on street 2 is only 2, then when field2 increments to 3 an unexpected action may occur.
+                     So in this case if field1 corresponds to street 2, any field2 values that would represent house 3 are determined to be skipped.
+                     
+            It's honestly really dumb and should be replaced by a better method.
+            </summary>
+            <param name="field1">Field to be compared to a holders Field1.</param>
+            <param name="field2">Field to be compared to a holders Field2.</param>
+            <returns>Boolean determining if the combination should be skipped. True = Skip, False = Dont Skip.</returns>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.RangeCombinationSkips`1.Holder">
+            <summary>
+            Holder object for RangeCombinationSkips.
+            Contains two fields
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeCombinationSkips`1.Holder.#ctor(`0,`0)">
+            <summary>
+            Constructor.            
+            </summary>
+            <param name="field1">Field 1</param>
+            <param name="field2">Field 2</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeCombinationSkips`1.Holder.Field1">
+            <summary>
+            Value of first field.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeCombinationSkips`1.Holder.Field2">
+            <summary>
+            Value of second field
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.RangeInteger">
+            <summary>
+            Implementation of IterableRange of type int.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeInteger.#ctor(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="name">Name of object.</param>
+            <param name="minValue">Minimum value for the iteration.</param>
+            <param name="maxValue">Maximum value for the iteration.</param>
+            <param name="stepSize">Step size value for the iteration.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeInteger.Iterations">
+            <summary>
+            Returns the number of iterations that this range will go over.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeInteger.GetEnumerator">
+            <summary>
+            Returns an IEnumerator for the object with each value that would be iterated.
+            </summary>
+            <returns>An IEnumerator with each value that would be iterated.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeInteger.IncrementValue">
+            <summary>
+            Increments the current value by the step size.
+            If the maximum value is exceeded the IncrementValue function of the referenced IterableRange in NextRange is called.
+            If no IterableRange is referenced then an IterationFinishedException is thrown. 
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.RangeDouble">
+            <summary>
+            Implementation of IterableRange of type double.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeDouble.#ctor(System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="name">Name of object.</param>
+            <param name="minValue">Minimum value for the iteration.</param>
+            <param name="maxValue">Maximum value for the iteration.</param>
+            <param name="stepSize">Step size value for the iteration.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeDouble.Iterations">
+            <summary>
+            Returns the number of iterations that this range will go over.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeDouble.GetEnumerator">
+            <summary>
+            Returns an IEnumerator for the object with each value that would be iterated.
+            </summary>
+            <returns>An IEnumerator with each value that would be iterated.</returns>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeDouble.IncrementValue">
+            <summary>
+            Increments the current value by the step size.
+            If the maximum value is exceeded the IncrementValue function of the referenced IterableRange in NextRange is called.
+            If no IterableRange is referenced then an IterationFinishedException is thrown. 
+            </summary>
+        </member>
+        <member name="T:TransformerOptimizer.Parameters.RangeLaminationDetails">
+            <summary>
+            Implementation of IterableRand of object LaminationDetails.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeLaminationDetails.#ctor(System.String,TransformerOptimizer.Data.Constants.LaminationDetails[])">
+            <summary>
+            Constructor.
+            
+            Passes null to the base constructor for MinValue, MaxValue, and StepSize.
+            </summary>
+            <param name="name">Name of object.</param>
+            <param name="laminationDetails">Array of laminations to iterate with.</param>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeLaminationDetails.LaminationDetails">
+            <summary>
+            Array of laminations to iterate with.
+            </summary>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeLaminationDetails.Iterations">
+            <summary>
+            Returns the number of iterations that this range will go over.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeLaminationDetails.GetEnumerator">
+            <summary>
+            Returns an IEnumerator for the object with each value that would be iterated.
+            </summary>
+            <returns>An IEnumerator with each value that would be iterated.</returns>
+        </member>
+        <member name="P:TransformerOptimizer.Parameters.RangeLaminationDetails.CurrentValue">
+            <summary>
+            Overrides base method; returns the current lamination detail.
+            </summary>
+        </member>
+        <member name="M:TransformerOptimizer.Parameters.RangeLaminationDetails.IncrementValue">
+            <summary>
+            Increments the current value to the next lamination detail.
+            If the maximum value is exceeded the IncrementValue function of the referenced IterableRange in NextRange is called.
+            If no IterableRange is referenced then an IterationFinishedException is thrown. 
+            </summary>
+        </member>
+    </members>
+</doc>
